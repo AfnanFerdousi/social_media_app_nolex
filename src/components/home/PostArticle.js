@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast, ToastContainer } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PostArticle = () => {
     const {
@@ -32,11 +32,11 @@ const PostArticle = () => {
             const postData = {
                 content,
                 file,
-                user,                
+                user,
                 like
             }
             console.log(postData)
-            const res = await axios.post(`http://localhost:5000/post`, postData, {
+            const res = await axios.post(`https://nolex-social-server-zeta.vercel.app/post`, postData, {
                 headers: {
                     "content-type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -88,7 +88,7 @@ const PostArticle = () => {
                     </form>
                 </label>
             </label>
-<ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };

@@ -17,7 +17,7 @@ const AboutModal = ({ updateProfile, setUpdateProfile }) => {
             location: data.location,
             image: data.image
         }
-        fetch(`http://localhost:5000/about/${user.email}`, {
+        fetch(`https://nolex-social-server-zeta.vercel.app/about/${user.email}`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -102,7 +102,7 @@ const AboutModal = ({ updateProfile, setUpdateProfile }) => {
 
                 </div >
             </div >
-            <ToastContainer/>
+            <ToastContainer />
         </div >
     );
 };

@@ -16,14 +16,14 @@ const AllPost = () => {
     const [specComment, setSpecComment] = useState([]);
     const [postID, setPostID] = useState();
     useEffect(() => {
-        fetch('http://localhost:5000/posts')
+        fetch('https://nolex-social-server-zeta.vercel.app/posts')
             .then(res => res.json())
             .then(data => setPosts(data))
     }, [])
 
 
     const handleLike = async (_id) => {
-        const res = await axios.put(`http://localhost:5000/updateLike/${_id}`)
+        const res = await axios.put(`https://nolex-social-server-zeta.vercel.app/updateLike/${_id}`)
         console.log(res)
     }
     const handleComment = (_id) => {
@@ -33,7 +33,7 @@ const AllPost = () => {
             comment,
             user
         }
-        fetch(`http://localhost:5000/comment`, {
+        fetch(`https://nolex-social-server-zeta.vercel.app/comment`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -54,7 +54,7 @@ const AllPost = () => {
     }
 
     const handleSpecComment = async (_id) => {
-        fetch(`http://localhost:5000/comment/${_id}`)
+        fetch(`https://nolex-social-server-zeta.vercel.app/comment/${_id}`)
             .then(res => res.json())
             .then((data) => {
                 setSpecComment(data)
@@ -110,23 +110,23 @@ const AllPost = () => {
                                         value={comment}
                                     />
                                     <button type="submit" className="text-[16px]" ><AiOutlineSend /></button>
-                                </form>   
+                                </form>
                             </div>
                             <button onClick={() => { handleSpecComment(post?._id) }}>Load comments</button>
-                           {
-                            specComment.map((comment) => {
-                                return (
-                                    <div className="flex items-center mb-4 border-b-[1px] pb-4 mt-2 ">
-                                        <div className="avatar placeholder">
-                                            <div className="bg-neutral-focus text-neutral-content rounded-full w-6">
-                                                <span className="text-mdl uppercase">{comment?.user?.displayName.slice(0, 2)}</span>
+                            {
+                                specComment.map((comment) => {
+                                    return (
+                                        <div className="flex items-center mb-4 border-b-[1px] pb-4 mt-2 ">
+                                            <div className="avatar placeholder">
+                                                <div className="bg-neutral-focus text-neutral-content rounded-full w-6">
+                                                    <span className="text-mdl uppercase">{comment?.user?.displayName.slice(0, 2)}</span>
+                                                </div>
                                             </div>
+                                            <h2 className="ml-2">{comment?.comment}</h2>
                                         </div>
-                                        <h2 className="ml-2">{comment?.comment}</h2>
-                                    </div>
-                                )
-                            })
-                           }
+                                    )
+                                })
+                            }
                         </div>
                     )
                 })

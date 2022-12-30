@@ -9,23 +9,23 @@ const AboutComp = () => {
     const [users, setUsers] = useState([]);
     const [updateProfile, setUpdateProfile] = useState(null);
     // console.log(user);
-      useEffect(() => {
-            const myProfile = () => {
-                fetch(`http://localhost:5000/user/${user?.email}`, {
-                    method: "GET",
-                    headers: { 
-                        "content-type": "application/json",
-                        authorization: `Bearer ${localStorage.getItem("accessToken")}` 
-                    }
-                })
-                    .then(res => res.json())
-                    .then(data => setUsers(data))
-            }
-            myProfile();
-        }, [users]) 
-        // console.log(users)
-    return(
-       <div className="mt-6  flex flex-cols justify-center items-center">
+    useEffect(() => {
+        const myProfile = () => {
+            fetch(`https://nolex-social-server-zeta.vercel.app/user/${user?.email}`, {
+                method: "GET",
+                headers: {
+                    "content-type": "application/json",
+                    authorization: `Bearer ${localStorage.getItem("accessToken")}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => setUsers(data))
+        }
+        myProfile();
+    }, [users])
+    // console.log(users)
+    return (
+        <div className="mt-6  flex flex-cols justify-center items-center">
             <div className="card flex items-center flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
                 <div className="card flex items-center bg-base-100 ">
                     <div className="avatar mt-2">
@@ -45,7 +45,7 @@ const AboutComp = () => {
                     </div>
                 </div>
             </div>
-            {updateProfile && <AboutModal setUpdateProfile={setUpdateProfile} updateProfile={updateProfile}></AboutModal>} 
+            {updateProfile && <AboutModal setUpdateProfile={setUpdateProfile} updateProfile={updateProfile}></AboutModal>}
         </div>
     )
 }

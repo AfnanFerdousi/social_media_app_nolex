@@ -16,14 +16,14 @@ const TopPost = () => {
     const [specComment, setSpecComment] = useState([]);
     const [postID, setPostID] = useState();
     useEffect(() => {
-        fetch('http://localhost:5000/posts')
+        fetch('https://nolex-social-server-zeta.vercel.app/posts')
             .then(res => res.json())
             .then(data => setPosts(data))
     }, [])
 
 
     const handleLike = async (_id) => {
-        const res = await axios.put(`http://localhost:5000/updateLike/${_id}`)
+        const res = await axios.put(`https://nolex-social-server-zeta.vercel.app/updateLike/${_id}`)
         console.log(res)
     }
     const handleComment = (_id) => {
@@ -33,7 +33,7 @@ const TopPost = () => {
             comment,
             user
         }
-        fetch(`http://localhost:5000/comment`, {
+        fetch(`https://nolex-social-server-zeta.vercel.app/comment`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -54,7 +54,7 @@ const TopPost = () => {
     }
 
     const handleSpecComment = async (_id) => {
-        fetch(`http://localhost:5000/comment/${_id}`)
+        fetch(`https://nolex-social-server-zeta.vercel.app/comment/${_id}`)
             .then(res => res.json())
             .then((data) => {
                 setSpecComment(data)
@@ -67,7 +67,7 @@ const TopPost = () => {
     return (
         <div className="flex flex-col items-center">
             {
-                sorted.slice(0,3)?.map((post) => {
+                sorted.slice(0, 3)?.map((post) => {
                     return (
                         <div className='p-4 border-[1px] border-gray-300 mb-4 card w-[30rem] bg-base-100 shadow-xl' key={post._id} >
                             <div className="flex items-center mb-4 border-b-[1px] pb-4">

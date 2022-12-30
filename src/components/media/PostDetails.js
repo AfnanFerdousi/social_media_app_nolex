@@ -7,7 +7,7 @@ const PostDetails = () => {
     const { id } = useParams();
     const [post, setPost] = useState({});
     useEffect(() => {
-        fetch(`http://localhost:5000/posts/${id}`)
+        fetch(`https://nolex-social-server-zeta.vercel.app/posts/${id}`)
             .then(res => res.json())
             .then(data => setPost(data))
     }, [])
@@ -18,7 +18,7 @@ const PostDetails = () => {
                 <img className='w-full h-96' src={post?.file} alt="" />
                 {post?.content && <p className="text-[18px] font-medium mt-4 text-start ">{post?.content.slice(3).split("</p>")}</p>}
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 };
