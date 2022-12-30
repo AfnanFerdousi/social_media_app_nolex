@@ -15,35 +15,23 @@ const AllPost = () => {
     const [comment, setComment] = useState(null)
     const [specComment, setSpecComment] = useState([]);
     const [postID, setPostID] = useState();
-    // const clientComment = watch("comment");
-    // console.log(clientComment)
     useEffect(() => {
         fetch('http://localhost:5000/posts')
             .then(res => res.json())
             .then(data => setPosts(data))
     }, [])
 
-    // console.log(user);
-    // token
-
-    // console.log(comment)
-
 
     const handleLike = async (_id) => {
         const res = await axios.put(`http://localhost:5000/updateLike/${_id}`)
         console.log(res)
     }
-    console.log(comment)
-    // const handleChange = (e) => {
-    //     e.preventDefault()
-    //     setComment(e.target.value);
-    //     // console.log(comment);
-    // }
     const handleComment = (_id) => {
         // console.log(data)
         const coment = {
             postId: _id,
-            comment
+            comment,
+            user
         }
         fetch(`http://localhost:5000/comment`, {
             method: "POST",
@@ -56,7 +44,7 @@ const AllPost = () => {
             .then(res => res.json())
             .then(data => {
                 if (data) {
-                    console.log("comment added", data)
+                    toast("comment added")
                 }
                 else {
                     toast.error('unsuccessful')
@@ -65,15 +53,16 @@ const AllPost = () => {
         console.log(comment);
     }
 
-    const handleSpecComment = async ( _id) => {
+    const handleSpecComment = async (_id) => {
         fetch(`http://localhost:5000/comment/${_id}`)
             .then(res => res.json())
             .then((data) => {
-                 console.log(data)
+                setSpecComment(data)
+                console.log(data)
             })
 
     }
-
+    const sorted = posts.sort((a, b) => a.like - b.like);
     return (
         <div className="flex flex-col items-center">
             {
@@ -121,13 +110,23 @@ const AllPost = () => {
                                         value={comment}
                                     />
                                     <button type="submit" className="text-[16px]" ><AiOutlineSend /></button>
-                                </form>
-                                {
-                                    handleSpecComment(post._id)
-                                }
-
+                                </form>   
                             </div>
-
+                            <button onClick={() => { handleSpecComment(post?._id) }}>Load comments</button>
+                           {
+                            specComment.map((comment) => {
+                                return (
+                                    <div className="flex items-center mb-4 border-b-[1px] pb-4 mt-2 ">
+                                        <div className="avatar placeholder">
+                                            <div className="bg-neutral-focus text-neutral-content rounded-full w-6">
+                                                <span className="text-mdl uppercase">{comment?.user?.displayName.slice(0, 2)}</span>
+                                            </div>
+                                        </div>
+                                        <h2 className="ml-2">{comment?.comment}</h2>
+                                    </div>
+                                )
+                            })
+                           }
                         </div>
                     )
                 })

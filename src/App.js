@@ -11,7 +11,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Login/Register";
 import Media from "./pages/Media";
-
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const router = createBrowserRouter([
@@ -44,7 +44,7 @@ function App() {
   return (
     <div className="">
       <RouterProvider router={router} />
-      {/* <ToastContainer/> */}
+      <ToastContainer/>
     </div>
   );
 }

@@ -8,12 +8,15 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast, ToastContainer } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const PostArticle = () => {
     const {
         register,
         handleSubmit,
         watch,
+        reset,
         formState: { errors } } = useForm();
 
     const [user, loading, error] = useAuthState(auth);
@@ -40,6 +43,8 @@ const PostArticle = () => {
                 },
             })
             if (res?.status === 200) {
+                toast("Posted");
+                reset();
                 console.log(res);
                 // setAddBlogState(false)
             }
@@ -83,7 +88,7 @@ const PostArticle = () => {
                     </form>
                 </label>
             </label>
-
+<ToastContainer/>
         </div>
     );
 };
